@@ -39,8 +39,9 @@ use App\Http\Controllers\LocaleController;
 Route::get('/', function () {
     $brands = Brand::all()->sortBy('name');
     $description = 'Hoi dit is een pagina waar je handleiding kunt downloaden';
+    $myname = 'joe biden';
 
-    return view('pages.homepage', compact('brands', 'description'));
+    return view('pages.homepage', compact('brands', 'description', 'myname'));
 })->name('home');
 
 Route::get('/contact', function () {
