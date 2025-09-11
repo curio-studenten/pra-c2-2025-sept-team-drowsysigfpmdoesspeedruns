@@ -37,7 +37,7 @@ use App\Http\Controllers\LocaleController;
 // Homepage
 Route::get('/', function () {
     $brands = Brand::all()->sortBy('name');
-    $my_name = "hubert";
+    $my_name = "joe biden";
     return view('pages.homepage', compact('brands', 'my_name'));
 })->name('home');
 

@@ -20,7 +20,7 @@
     ?>
             
     <div class="container">
-        <p>Hallo, mijn naam is {{ $my_name }}.</p>
+        <p>{{ $my_name }}.</p>
         <div class="row">
 
             @foreach($brands->chunk($chunk_size) as $chunk)
