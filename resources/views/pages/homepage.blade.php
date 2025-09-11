@@ -18,9 +18,9 @@
     $columns = 3;
     $chunk_size = ceil($size / $columns);
     ?>
-
+            
     <div class="container">
-        <!-- Example row of columns -->
+        <p>{{ $my_name }}.</p>
         <div class="row">
 
             @foreach($brands->chunk($chunk_size) as $chunk)
