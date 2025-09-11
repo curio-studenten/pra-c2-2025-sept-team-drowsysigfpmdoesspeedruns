@@ -1,6 +1,7 @@
 
 <footer>
 	© {{ __('misc.copyright') }}
+  <a class="navbar-brand" href="/contact" title="{{ __('misc.contact_alt') }}">{{ __('contact') }}</a>
 </footer>
 
 

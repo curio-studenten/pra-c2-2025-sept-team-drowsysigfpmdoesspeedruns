@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\ContactController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -19,7 +20,7 @@ Home:			/
 Brand:			/52/AEG/
 Type:			/52/AEG/53/Superdeluxe/
 Manual:			/52/AEG/53/Superdeluxe/8023/manual/
-				/52/AEG/456/Testhandle/8023/manual/
+                /52/AEG/456/Testhandle/8023/manual/
 
 If we want to add product categories later:
 Productcat:		/category/12/Computers/
@@ -37,8 +38,16 @@ use App\Http\Controllers\LocaleController;
 // Homepage
 Route::get('/', function () {
     $brands = Brand::all()->sortBy('name');
-    return view('pages.homepage', compact('brands'));
+    $description = 'Hoi dit is een pagina waar je handleiding kunt downloaden';
+
+    return view('pages.homepage', compact('brands', 'description'));
 })->name('home');
+
+Route::get('/contact', function () {
+    return view('pages.contact');
+});
+
+Route::post('/contact', [ContactController::class, 'store']);
 
 Route::get('/manual/{language}/{brand_slug}/', [RedirectController::class, 'brand']);
 Route::get('/manual/{language}/{brand_slug}/brand.html', [RedirectController::class, 'brand']);

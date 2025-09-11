@@ -6583,6 +6583,57 @@ button.bg-dark:focus {
     padding-top: 100%;
 }
 
+form div {
+    margin-bottom: 18px;
+}
+
+label {
+    display:block; 
+    margin-bottom: 6px;
+    color: #332
+}
+
+input[type="text"],
+input[type="email"],
+textarea {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #bca;
+    border-radius: 4px;
+    font-size: 1em;
+    background: #fff;
+    transition: border-color 0.4s;
+
+}
+
+input[type="text"]:focus,
+input[type="email"]:focus,
+textarea:focus {
+    border-color: #3641ab;
+    outline: none;
+}
+
+
+button[type="submit"] {
+    background: #3641ab;
+    color: #fff;
+    border: none;
+    padding: 10px 20px;
+    font-size: 1em;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    margin-bottom: 20px;
+}
+
+button[type="submit"]:hover {
+    transform: translateY(-2px);
+}
+
+button[type="submit"]:active {
+   transform: translateY(0);
+}
+
 .flex-row {
     flex-direction: row !important;
 }
