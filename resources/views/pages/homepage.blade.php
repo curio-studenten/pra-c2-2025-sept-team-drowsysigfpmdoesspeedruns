@@ -22,7 +22,7 @@
     <div class="container">
         <!-- Example row of columns -->
         <div class="row">
-
+        <p>Hallo, mijn naam is {{ $my_name }}.</p>
             @foreach($brands->chunk($chunk_size) as $chunk)
                 <div class="col-md-4">
 
