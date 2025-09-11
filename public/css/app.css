@@ -55,7 +55,7 @@ article, aside, figcaption, figure, footer, header, hgroup, main, nav, section {
 }
 
 body {
-    margin: 0;
+    margin: 0;  
     font-family: "Nunito", sans-serif;
     font-size: 0.9rem;
     font-weight: 400;
@@ -569,6 +569,7 @@ pre code {
 }
 .row {
     display: flex;
+    justify-content: center;
     flex-wrap: wrap;
     margin-right: -15px;
     margin-left: -15px;
@@ -4811,6 +4812,12 @@ a.badge-dark:focus, a.badge-dark.focus {
     background-color: #e9ecef;
     border-radius: 0.3rem;
 }
+
+.jumbotron h1 {
+    font-size: 2.5rem;
+    
+}
+
 @media (min-width: 576px) {
     .jumbotron {
         padding: 4rem 2rem;

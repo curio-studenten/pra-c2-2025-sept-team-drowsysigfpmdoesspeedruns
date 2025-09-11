@@ -33,12 +33,9 @@
             </ul>
 
         </div>
-
-        <div class="row">
-            <x-footer/>
-        </div>
-
     </div>
+            <x-footer/>
+
 
 
 </div>
