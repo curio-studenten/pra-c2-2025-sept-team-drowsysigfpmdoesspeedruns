@@ -6,9 +6,6 @@ use Illuminate\Support\Facades\Schema;
 
 return new class extends Migration
 {
-    /**
-     * Run the migrations.
-     */
     public function up(): void
     {
         Schema::create('manuals', function (Blueprint $table) {
@@ -19,15 +16,13 @@ return new class extends Migration
             $table->text('originUrl');
             $table->string('filename')->nullable();
             $table->string('downloadedServer')->nullable();
+            $table->unsignedBigInteger('view_count')->default(0); // ✅ nieuw veld
             $table->timestamps();
 
             $table->foreign('brand_id')->references('id')->on('brands');
         });
     }
 
-    /**
-     * Reverse the migrations.
-     */
     public function down(): void
     {
         Schema::dropIfExists('manuals');
