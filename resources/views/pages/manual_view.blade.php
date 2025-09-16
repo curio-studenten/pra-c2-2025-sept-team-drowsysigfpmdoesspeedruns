@@ -5,20 +5,56 @@
     </x-slot:head>
 
     <x-slot:breadcrumb>
-        <li><a href="/{{ $brand->id }}/{{ $brand->getNameUrlEncodedAttribute() }}/" alt="Manuals for '{{$brand->name}}'" title="Manuals for '{{$brand->name}}'">{{ $brand->name }}</a></li>
-        <li><a href="/{{ $brand->id }}/{{ $brand->getNameUrlEncodedAttribute() }}/" alt="Manuals for '{{$brand->name}} {{ $type->name }}'" title="Manuals for '{{$brand->name}} {{ $type->name }}'">{{ $type->name }}</a></li>
-        <li><a href="/{{ $brand->id }}/{{ $brand->getNameUrlEncodedAttribute() }}/{{ $manual->id }}/" alt="View manual for '{{$brand->name}} '" title="View manual for '{{$brand->name}} {{ $type->name }}'">View</a></li>
+        <li>
+            <a href="/{{ $brand->id }}/{{ $brand->getNameUrlEncodedAttribute() }}/"
+               title="Manuals for '{{ $brand->name }}'">
+               {{ $brand->name }}
+            </a>
+        </li>
+        <li>
+            <a href="/{{ $brand->id }}/{{ $brand->getNameUrlEncodedAttribute() }}/"
+               title="Manuals for '{{ $brand->name }} {{ $type->name }}'">
+               {{ $type->name }}
+            </a>
+        </li>
+        <li>
+            <a href="/{{ $brand->id }}/{{ $brand->getNameUrlEncodedAttribute() }}/{{ $manual->id }}/"
+               title="View manual for '{{ $brand->name }} {{ $type->name }}'">
+               {{ __('View') }}
+            </a>
+        </li>
     </x-slot:breadcrumb>
 
-    <h1>{{ $brand->name }} - {{ $type->name }}</h1>
+    <h1 class="mb-3">{{ $brand->name }} - {{ $type->name }}</h1>
 
     @if ($manual->locally_available)
         <iframe src="{{ $manual->url }}" width="780" height="600" frameborder="0" marginheight="0" marginwidth="0">
-        Iframes are not supported<br />
-        <a href="{{ $manual->url }}" target="new" alt="Download your manual here" title="Download your manual here">Click here to download the manual</a>
+            {{ __('Iframes are not supported') }}<br>
+            <!-- Fallback green download -->
+            <form action="{{ $manual->url }}" method="get" target="_blank" class="d-inline">
+                <button type="submit" class="btn btn-success">
+                    {{ __('Download the manual') }}
+                </button>
+            </form>
         </iframe>
+
+        <!-- Centered green download under iframe -->
+        <div class="mt-3 text-center">
+            <form action="{{ $manual->url }}" method="get" target="_blank" class="d-inline">
+                <button type="submit" class="btn btn-success">
+                    {{ __('Download the manual') }}
+                </button>
+            </form>
+        </div>
     @else
-        <a href="{{ $manual->url }}" target="new" alt="Download your manual here" title="Download your manual here">Click here to download the manual</a>
+        <!-- External manual: centered green button -->
+        <div class="text-center">
+            <form action="{{ $manual->url }}" method="get" target="_blank" class="d-inline">
+                <button type="submit" class="btn btn-success">
+                    {{ __('Download the manual') }}
+                </button>
+            </form>
+        </div>
     @endif
 
 </x-layouts.app>
