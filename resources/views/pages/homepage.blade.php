@@ -12,47 +12,32 @@
         </x-slot:title>
     </h1>
 
+    @php
+        // Group brands A, B, C... and sort alphabetically
+        $grouped = $brands->sortBy('name')->groupBy(function($b){
+            return strtoupper(substr($b->name, 0, 1));
+        });
+    @endphp
 
-    <?php
-    $size = count($brands);
-    $columns = 3;
-    $chunk_size = ceil($size / $columns);
-    ?>
-            
     <div class="container">
-        {{ $myname }}
         <div class="row">
+            @foreach($grouped as $letter => $group)
+                <div class="col-lg-4 col-md-6 mb-4">
+                    <h2 class="h4 mb-3">{{ $letter }}</h2>
 
-            @foreach($brands->chunk($chunk_size) as $chunk)
-                <div class="col-md-4">
-
-                    <ul>
-                        @foreach($chunk as $brand)
-
-                            <?php
-                            $current_first_letter = strtoupper(substr($brand->name, 0, 1));
-
-                            if (!isset($header_first_letter) || (isset($header_first_letter) && $current_first_letter != $header_first_letter)) {
-                                echo '</ul>
-						<h2>' . $current_first_letter . '</h2>
-						<ul>';
-                            }
-                            $header_first_letter = $current_first_letter
-                            ?>
-
-                            <li>
-                                <a href="/{{ $brand->id }}/{{ $brand->getNameUrlEncodedAttribute() }}/">{{ $brand->name }}</a>
-                            </li>
-                        @endforeach
-                    </ul>
-
+                    {{-- Stack of brand buttons --}}
+                    @foreach($group as $brand)
+                        <form method="get"
+                              action="/{{ $brand->id }}/{{ $brand->getNameUrlEncodedAttribute() }}/"
+                              class="mb-2">
+                            <button type="submit" class="btn btn-primary btn-block" aria-label="Open {{ $brand->name }}">
+                                {{ $brand->name }}
+                            </button>
+                        </form>
+                    @endforeach
                 </div>
-                <?php
-                unset($header_first_letter);
-                ?>
             @endforeach
-
         </div>
-
     </div>
+
 </x-layouts.app>
