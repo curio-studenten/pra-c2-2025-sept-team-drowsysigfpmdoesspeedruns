@@ -12,6 +12,15 @@
         </x-slot:title>
     </h1>
 
+    {{-- 🔥 Link naar Top 10 Handleidingen --}}
+    <div class="mb-4 text-center">
+        <a href="{{ route('manuals.top10') }}" class="btn btn-danger btn-lg">
+             Bekijk de Top 10 Handleidingen
+        </a>
+    </div>
+
+    </div>
+
     @php
         // Group brands A, B, C... and sort alphabetically
         $grouped = $brands->sortBy('name')->groupBy(function($b){

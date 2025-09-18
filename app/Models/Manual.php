@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Manual extends Model
 {
+    
     use HasFactory;
 
     // Returns the filesize in a human readable format
@@ -37,6 +38,9 @@ class Manual extends Model
 
         return !empty($filename); */
     }
+    // app/Models/Manual.php
+
+
 
     public function getUrlAttribute()
     {
@@ -53,4 +57,9 @@ class Manual extends Model
 
         return $url; */
     }
+    public function brand()
+{
+    return $this->belongsTo(\App\Models\Brand::class);
+}
+
 }

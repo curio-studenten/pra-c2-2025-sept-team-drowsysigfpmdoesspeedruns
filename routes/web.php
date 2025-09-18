@@ -66,3 +66,11 @@ Route::get('/{brand_id}/{brand_slug}/{manual_id}/', [ManualController::class, 's
 
 // Generate sitemaps
 Route::get('/generateSitemap/', [SitemapController::class, 'generate']);
+// Top 10 handleidingen (globaal)
+Route::get('/manuals_top10', [ManualController::class, 'top10'])->name('manuals.top10');
+
+// Top 5 handleidingen per merk
+Route::get('/{brand_id}/{brand_slug}/top5', [ManualController::class, 'top5ByBrand'])->name('manuals.top5ByBrand');
+// web.php
+Route::get('/manual/{id}/{name}/{id2}', [ManualController::class, 'show'])->name('manual.show');
+
