@@ -9,11 +9,12 @@ use App\Models\Manual;
 class ManualController extends Controller
 {
     /**
-     * 1. Handleiding tonen + teller ophogen
+     * 1. Handleiding tonen + teller ophogen (Ticket 09)
      */
     public function show($brand_id, $brand_slug, $manual_id)
     {
         $brand = Brand::findOrFail($brand_id);
+
         $manual = Manual::where('id', $manual_id)
             ->where('brand_id', $brand->id)
             ->firstOrFail();
@@ -21,14 +22,11 @@ class ManualController extends Controller
         // Teller +1
         $manual->increment('view_count');
 
-        return view('pages/manual_view', [
-            "manual" => $manual,
-            "brand" => $brand,
-        ]);
+        return view('pages/manual_view', compact('manual', 'brand'));
     }
 
     /**
-     * 2. Top 10 populairste handleidingen (site breed)
+     * 2. Top 10 populairste handleidingen (site breed) - Ticket 10
      */
     public function top10()
     {
@@ -36,26 +34,22 @@ class ManualController extends Controller
             ->take(10)
             ->get();
 
-        return view('pages/manuals_top10', [
-            "manuals" => $manuals,
-        ]);
+        return view('pages/manuals_top10', compact('manuals'));
     }
 
     /**
-     * 3. Top 5 populairste handleidingen per merk
+     * 3. Top 5 populairste handleidingen per merk - Ticket 11
      */
     public function top5ByBrand($brand_id)
     {
         $brand = Brand::findOrFail($brand_id);
 
+        // via relatie (zorg dat Brand een manuals() relatie heeft in het model)
         $manuals = $brand->manuals()
             ->orderByDesc('view_count')
             ->take(5)
             ->get();
 
-        return view('pages/manuals_top5_brand', [
-            "brand" => $brand,
-            "manuals" => $manuals,
-        ]);
+        return view('pages/manuals_top5_brand', compact('brand', 'manuals'));
     }
 }
