@@ -6,5 +6,8 @@
         </a>
         {{ $introduction_text ?? '' }}
         
+        <a href="{{ route('language.switch', 'nl') }}">🇳🇱 Nederlands</a> |
+        <a href="{{ route('language.switch', 'en') }}">🇬🇧 English</a>
+
     </div>
 </div>

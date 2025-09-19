@@ -7,11 +7,9 @@
 
     <div class="footer-block contact">
       <a class="navbar-brand" href="/contact" title="{{ __('misc.contact_alt') }}">
-        <h3>{{ __('Contact') }}</h3>
+        <h3>{{ __('contact.contact_title') }}</h3>
       </a>
-      <p>Email: info@voorbeeld.nl -
-        Telefoon: +31 6 12345678 -
-        Adres: Straatnaam 12, 1234 AB, Stad</p>
+      <p>Email: info@voorbeeld.nl - Telefoon: +31 6 12345678 - Adres: Straatnaam 12, 1234 AB, Stad</p>
     </div>
 
     <div class="footer-block social">
@@ -24,19 +22,16 @@
       </div>
     </div>
   </div>
+
   <div class="footer-bottom">
     <p> © {{ __('misc.copyright') }} Bedrijfsnaam. Alle rechten voorbehouden.</p>
   </div>
 </footer>
 
-
-
-<!-- analytics code -->
 <script type="text/javascript">
   var _gaq = _gaq || [];
   _gaq.push(['_setAccount', 'UA-30506707-1']);
   _gaq.push(['_trackPageview']);
-
   (function() {
     var ga = document.createElement('script');
     ga.type = 'text/javascript';
@@ -46,9 +41,8 @@
     s.parentNode.insertBefore(ga, s);
   })();
 </script>
-<!-- Einde analytics code -->
 
-<script language="Javascript" type="text/javascript">
+<script type="text/javascript">
   if (top.location != self.location) {
     top.location = self.location.href
   }
