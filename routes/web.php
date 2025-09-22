@@ -7,26 +7,10 @@ use Illuminate\Support\Facades\Route;
 |--------------------------------------------------------------------------
 | Web Routes
 |--------------------------------------------------------------------------
-|
-| Here is where you can register web routes for your application. These
-| routes are loaded by the RouteServiceProvider within a group which
-| contains the "web" middleware group. Now create something great!
-|
-*/
-
-/*
-2017-10-30 setup for urls
-Home:			/
-Brand:			/52/AEG/
-Type:			/52/AEG/53/Superdeluxe/
-Manual:			/52/AEG/53/Superdeluxe/8023/manual/
-                /52/AEG/456/Testhandle/8023/manual/
-
-If we want to add product categories later:
-Productcat:		/category/12/Computers/
 */
 
 use App\Models\Brand;
+use App\Models\Manual; // ✅ toegevoegd voor Top-10
 use App\Http\Controllers\RedirectController;
 use App\Http\Controllers\BrandController;
 use App\Http\Controllers\TypeController;
@@ -41,7 +25,14 @@ Route::get('/', function () {
     $description = 'Hoi dit is een pagina waar je handleiding kunt downloaden';
     $myname = 'joe biden';
 
-    return view('pages.homepage', compact('brands', 'description', 'myname'));
+    // ✅ Ticket 10: Top-10 meest bekeken handleidingen (Brand + Type)
+    $top10Manuals = Manual::with(['brand','type'])
+        ->orderByDesc('view_count')
+        ->take(10)
+        ->get();
+
+    // view krijgt nu ook $top10Manuals
+    return view('pages.homepage', compact('brands', 'description', 'myname', 'top10Manuals'));
 })->name('home');
 
 Route::get('/contact', function () {
@@ -58,7 +49,7 @@ Route::get('/datafeeds/{brand_slug}.xml', [RedirectController::class, 'datafeed'
 // Locale routes
 Route::get('/language/{language_slug}/', [LocaleController::class, 'changeLocale'])->name('language.switch');
 
-// List of manuals for a brand
+// List of manuals for a brand (merkpagina)
 Route::get('/{brand_id}/{brand_slug}/', [BrandController::class, 'show']);
 
 // Detail page for a manual
@@ -66,11 +57,12 @@ Route::get('/{brand_id}/{brand_slug}/{manual_id}/', [ManualController::class, 's
 
 // Generate sitemaps
 Route::get('/generateSitemap/', [SitemapController::class, 'generate']);
-// Top 10 handleidingen (globaal)
+
+// Top 10 handleidingen (globaal) – losse pagina blijft bestaan
 Route::get('/manuals_top10', [ManualController::class, 'top10'])->name('manuals.top10');
 
-// Top 5 handleidingen per merk
+// Top 5 handleidingen per merk – losse pagina blijft bestaan
 Route::get('/{brand_id}/{brand_slug}/top5', [ManualController::class, 'top5ByBrand'])->name('manuals.top5ByBrand');
+
 // web.php
 Route::get('/manual/{id}/{name}/{id2}', [ManualController::class, 'show'])->name('manual.show');
-

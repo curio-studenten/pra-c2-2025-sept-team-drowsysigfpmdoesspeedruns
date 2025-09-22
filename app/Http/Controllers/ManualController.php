@@ -15,14 +15,19 @@ class ManualController extends Controller
     {
         $brand = Brand::findOrFail($brand_id);
 
-        $manual = Manual::where('id', $manual_id)
+        // Eager load 'type' zodat de view (indien gebruikt) $type kan tonen
+        $manual = Manual::with('type')
+            ->where('id', $manual_id)
             ->where('brand_id', $brand->id)
             ->firstOrFail();
 
-        // Teller +1
+        // Teller +1 (blijft zoals was)
         $manual->increment('view_count');
 
-        return view('pages/manual_view', compact('manual', 'brand'));
+        // Optioneel aan view meegeven als die $type verwacht
+        $type = $manual->type;
+
+        return view('pages/manual_view', compact('manual', 'brand', 'type'));
     }
 
     /**

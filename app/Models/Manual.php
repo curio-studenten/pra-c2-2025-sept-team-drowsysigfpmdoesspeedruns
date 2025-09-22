@@ -7,23 +7,23 @@ use Illuminate\Database\Eloquent\Model;
 
 class Manual extends Model
 {
-    
     use HasFactory;
 
     // Returns the filesize in a human readable format
-    public function getFilesizeHumanReadableAttribute(){
-
+    public function getFilesizeHumanReadableAttribute()
+    {
         $size = $this->filesize;
         $unit = "";
 
-        if( (!$unit && $size >= 1<<30) || $unit == "GB")
-            $value = number_format($size/(1<<30),2)."GB";
-        elseif( (!$unit && $size >= 1<<20) || $unit == "MB")
-            $value = number_format($size/(1<<20),2)."MB";
-        elseif( (!$unit && $size >= 1<<10) || $unit == "KB")
-            $value = number_format($size/(1<<10),2)."KB";
-        else
-            $value = number_format($size)." bytes";
+        if ((!$unit && $size >= 1 << 30) || $unit == "GB") {
+            $value = number_format($size / (1 << 30), 2) . "GB";
+        } elseif ((!$unit && $size >= 1 << 20) || $unit == "MB") {
+            $value = number_format($size / (1 << 20), 2) . "MB";
+        } elseif ((!$unit && $size >= 1 << 10) || $unit == "KB") {
+            $value = number_format($size / (1 << 10), 2) . "KB";
+        } else {
+            $value = number_format($size) . " bytes";
+        }
 
         return $value;
     }
@@ -33,33 +33,26 @@ class Manual extends Model
     {
         // As of 13-11-2017 we no longer link to local files, so we can cancel the TransIP server
         return false;
-
-        /* $filename = $this->filename;
-
-        return !empty($filename); */
     }
-    // app/Models/Manual.php
-
-
 
     public function getUrlAttribute()
     {
         return $this->originUrl;
-
-        /* $filename = $this->filename;
-        $originUrl = $this->originUrl;
-
-        // If it's downloaded a filename is available, link to our own CDN
-        if( !empty($filename ) )
-            $url = 'http://cdn.downloadyourmanual.com/'.$filename;
-        else	// If it's not download, link to the origin
-            $url = $originUrl;
-
-        return $url; */
     }
-    public function brand()
-{
-    return $this->belongsTo(\App\Models\Brand::class);
-}
 
+    // ── RELATIES ────────────────────────────────────────────────────────────────
+
+    public function brand()
+    {
+        return $this->belongsTo(\App\Models\Brand::class); // foreign key: brand_id
+    }
+
+    public function type()
+    {
+        return $this->belongsTo(\App\Models\Type::class);  // foreign key: type_id
+        // Als jouw kolom anders heet, bv. 'product_type_id', gebruik:
+        // return $this->belongsTo(\App\Models\Type::class, 'product_type_id', 'id');
+    }
+
+   
 }

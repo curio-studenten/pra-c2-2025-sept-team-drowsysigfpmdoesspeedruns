@@ -16,6 +16,34 @@
     <h1 class="mb-2">{{ $brand->name }}</h1>
     <p class="mb-4">{{ __('introduction_texts.type_list', ['brand'=>$brand->name]) }}</p>
 
+    {{-- ✅ Top 5 manuals block (Ticket 11) --}}
+    @isset($top5Manuals)
+        <section class="mb-4" aria-labelledby="h-top5">
+            <h2 id="h-top5" class="h5 mb-3">{{ __('Top 5 manuals for') }} {{ $brand->name }}</h2>
+
+            <ul class="list-group">
+                @forelse($top5Manuals as $m)
+                    <li class="list-group-item d-flex justify-content-between align-items-center">
+                        {{-- ✔️ Only show the Type name as per assignment --}}
+                        <div class="fw-semibold">{{ $m->type->name ?? __('Unknown type') }}</div>
+
+                        <div class="d-flex align-items-center gap-2">
+                            <span class="badge bg-secondary">
+                                {{ number_format($m->view_count) }} {{ __('views') }}
+                            </span>
+                            <a href="/{{ $brand->id }}/{{ $brand->getNameUrlEncodedAttribute() }}/{{ $m->id }}/"
+                               class="btn btn-sm btn-primary">
+                                {{ __('Open') }}
+                            </a>
+                        </div>
+                    </li>
+                @empty
+                    <li class="list-group-item text-muted">{{ __('No data yet') }}</li>
+                @endforelse
+            </ul>
+        </section>
+    @endisset
+
     <div class="row">
         @foreach ($manuals as $manual)
             <!-- equal-height, neatly spaced cards -->

@@ -7,22 +7,45 @@
     </x-slot:introduction_text>
 
     <h1>
-        <x-slot:title>
-            {{ __('misc.all_brands') }}
-        </x-slot:title>
+        <x-slot:title>{{ __('misc.all_brands') }}</x-slot:title>
     </h1>
 
-    {{-- 🔥 Link naar Top 10 Handleidingen --}}
-    <div class="mb-4 text-center">
-        <a href="{{ route('manuals.top10') }}" class="btn btn-danger btn-lg">
-             Bekijk de Top 10 Handleidingen
-        </a>
-    </div>
+    {{-- === Top 10 Handleidingen (boven de merkenlijst) === --}}
+@isset($top10Manuals)
+<section class="mb-4" aria-labelledby="h-top10">
+    <h2 id="h-top10" class="h4 mb-3">{{ __('Top 10 manuals') }}</h2>
 
-    </div>
+    <ul class="list-group">
+        @forelse($top10Manuals as $m)
+            @php
+                $brandName = $m->brand->name ?? __('Unknown brand');
+                $typeName  = $m->type->name  ?? __('Unknown type');
+            @endphp
+            <li class="list-group-item d-flex justify-content-between align-items-center">
+                <div class="me-2">
+                    {{-- ✔️ Weergave volgens opdracht: [Brand]: [Type] --}}
+                    <div class="fw-semibold">{{ $brandName }}: {{ $typeName }}</div>
+                </div>
+
+                <div class="d-flex align-items-center gap-2">
+                    <span class="badge bg-secondary">{{ number_format($m->view_count) }} {{ __('views') }}</span>
+
+                    {{-- Link naar detailpagina zodat view_count blijft tellen --}}
+                    <a href="/{{ $m->brand_id }}/{{ $m->brand?->getNameUrlEncodedAttribute() }}/{{ $m->id }}/"
+                       class="btn btn-sm btn-primary">
+                        {{ __('Open') }}
+                    </a>
+                </div>
+            </li>
+        @empty
+            <li class="list-group-item text-muted">{{ __('No data yet') }}</li>
+        @endforelse
+    </ul>
+</section>
+@endisset
+
 
     @php
-        // === Groeperen op eerste letter (A-Z), met accent-normalisatie ===
         $grouped = $brands
             ->sortBy('name', SORT_NATURAL | SORT_FLAG_CASE)
             ->groupBy(function($b){
@@ -31,12 +54,11 @@
                 );
                 return preg_match('/[A-Z]/', $first) ? $first : '#';
             });
-
         $letters  = collect(range('A','Z'));
         $hasOther = $grouped->has('#');
     @endphp
 
-    {{-- A–Z navigatiebalk (sticky, mobiel scrollbaar) --}}
+    {{-- A–Z navigatiebalk --}}
     <nav class="position-sticky top-0 bg-white border-bottom mb-3" style="z-index:20" aria-label="{{ __('Go to letter') }}">
         <ul class="d-flex flex-wrap gap-2 list-unstyled mb-0 py-2 overflow-auto">
             @foreach($letters as $L)
@@ -54,29 +76,26 @@
         </ul>
     </nav>
 
-    {{-- Merken-secties per letter (NETJES UITGELIJNDE KOLommen) --}}
+    {{-- Merken-secties per letter --}}
     @foreach($letters as $L)
         @if($grouped->has($L))
             @php
-                $columns    = 3;                                      // aantal kolommen
+                $columns    = 3;
                 $count      = $grouped[$L]->count();
-                $chunkSize  = max(1, (int) ceil($count / $columns));   // items per kolom
+                $chunkSize  = max(1, (int) ceil($count / $columns));
                 $chunks     = $grouped[$L]->values()->chunk($chunkSize);
             @endphp
 
             <section id="letter-{{ $L }}" class="mb-4" style="scroll-margin-top:5rem" aria-labelledby="h-{{ $L }}">
                 <h2 id="h-{{ $L }}" class="h4 mb-3">{{ $L }}</h2>
-
                 <div class="container px-0">
                     <div class="row">
                         @foreach($chunks as $col)
                             <div class="col-lg-4 col-md-6 mb-3">
                                 <div class="d-grid gap-2">
                                     @foreach($col as $brand)
-                                        <form method="get"
-                                              action="/{{ $brand->id }}/{{ $brand->getNameUrlEncodedAttribute() }}/">
-                                            <button type="submit" class="btn btn-primary w-100"
-                                                    aria-label="Open {{ $brand->name }}">
+                                        <form method="get" action="/{{ $brand->id }}/{{ $brand->getNameUrlEncodedAttribute() }}/">
+                                            <button type="submit" class="btn btn-primary w-100" aria-label="Open {{ $brand->name }}">
                                                 {{ $brand->name }}
                                             </button>
                                         </form>
@@ -105,10 +124,8 @@
                         <div class="col-lg-4 col-md-6 mb-3">
                             <div class="d-grid gap-2">
                                 @foreach($col as $brand)
-                                    <form method="get"
-                                          action="/{{ $brand->id }}/{{ $brand->getNameUrlEncodedAttribute() }}/">
-                                        <button type="submit" class="btn btn-primary w-100"
-                                                aria-label="Open {{ $brand->name }}">
+                                    <form method="get" action="/{{ $brand->id }}/{{ $brand->getNameUrlEncodedAttribute() }}/">
+                                        <button type="submit" class="btn btn-primary w-100" aria-label="Open {{ $brand->name }}">
                                             {{ $brand->name }}
                                         </button>
                                     </form>
@@ -121,7 +138,7 @@
         </section>
     @endif
 
-    {{-- Smooth scroll voor anchor-links --}}
+    {{-- Smooth scroll --}}
     <script>
         document.addEventListener('click', function(e){
             const a = e.target.closest('a[href^="#letter-"], a[href="#letter-other"]');
