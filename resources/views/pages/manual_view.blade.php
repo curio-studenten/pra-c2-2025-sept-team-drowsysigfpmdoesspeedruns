@@ -30,7 +30,7 @@
     @if ($manual->locally_available)
         <iframe src="{{ $manual->url }}" width="780" height="600" frameborder="0" marginheight="0" marginwidth="0">
             {{ __('Iframes are not supported') }}<br>
-            <!-- Fallback green download -->
+            
             <form action="{{ $manual->url }}" method="get" target="_blank" class="d-inline">
                 <button type="submit" class="btn btn-success">
                     {{ __('Download the manual') }}
@@ -38,7 +38,7 @@
             </form>
         </iframe>
 
-        <!-- Centered green download under iframe -->
+        
         <div class="mt-3 text-center">
             <form action="{{ $manual->url }}" method="get" target="_blank" class="d-inline">
                 <button type="submit" class="btn btn-success">
@@ -47,7 +47,7 @@
             </form>
         </div>
     @else
-        <!-- External manual: centered green button -->
+      
         <div class="text-center">
             <form action="{{ $manual->url }}" method="get" target="_blank" class="d-inline">
                 <button type="submit" class="btn btn-success">

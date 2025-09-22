@@ -16,7 +16,7 @@
     <h1 class="mb-2">{{ $brand->name }}</h1>
     <p class="mb-4">{{ __('introduction_texts.type_list', ['brand'=>$brand->name]) }}</p>
 
-    {{-- ✅ Top 5 manuals block (Ticket 11) --}}
+    {{--  Top 5 manuals block (Ticket 11) --}}
     @isset($top5Manuals)
         <section class="mb-4" aria-labelledby="h-top5">
             <h2 id="h-top5" class="h5 mb-3">{{ __('Top 5 manuals for') }} {{ $brand->name }}</h2>
@@ -24,7 +24,7 @@
             <ul class="list-group">
                 @forelse($top5Manuals as $m)
                     <li class="list-group-item d-flex justify-content-between align-items-center">
-                        {{-- ✔️ Only show the Type name as per assignment --}}
+                        
                         <div class="fw-semibold">{{ $m->type->name ?? __('Unknown type') }}</div>
 
                         <div class="d-flex align-items-center gap-2">
@@ -46,7 +46,7 @@
 
     <div class="row">
         @foreach ($manuals as $manual)
-            <!-- equal-height, neatly spaced cards -->
+        
             <div class="col-lg-4 col-md-6 mb-3 d-flex align-items-stretch">
                 <div class="card h-100 w-100">
                     <div class="card-body d-flex flex-column">

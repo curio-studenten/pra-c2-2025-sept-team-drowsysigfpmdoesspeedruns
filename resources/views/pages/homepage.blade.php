@@ -23,7 +23,7 @@
             @endphp
             <li class="list-group-item d-flex justify-content-between align-items-center">
                 <div class="me-2">
-                    {{-- ✔️ Weergave volgens opdracht: [Brand]: [Type] --}}
+                    {{--  Weergave volgens opdracht: [Brand]: [Type] --}}
                     <div class="fw-semibold">{{ $brandName }}: {{ $typeName }}</div>
                 </div>
 

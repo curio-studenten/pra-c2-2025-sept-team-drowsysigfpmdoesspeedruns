@@ -10,7 +10,7 @@ use Illuminate\Support\Facades\Route;
 */
 
 use App\Models\Brand;
-use App\Models\Manual; // ✅ toegevoegd voor Top-10
+use App\Models\Manual; 
 use App\Http\Controllers\RedirectController;
 use App\Http\Controllers\BrandController;
 use App\Http\Controllers\TypeController;
@@ -25,13 +25,13 @@ Route::get('/', function () {
     $description = 'Hoi dit is een pagina waar je handleiding kunt downloaden';
     $myname = 'joe biden';
 
-    // ✅ Ticket 10: Top-10 meest bekeken handleidingen (Brand + Type)
+    
     $top10Manuals = Manual::with(['brand','type'])
         ->orderByDesc('view_count')
         ->take(10)
         ->get();
 
-    // view krijgt nu ook $top10Manuals
+   
     return view('pages.homepage', compact('brands', 'description', 'myname', 'top10Manuals'));
 })->name('home');
 
