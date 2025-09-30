@@ -7,6 +7,9 @@
             <a class="navbar-brand" href="/contact" title="{{ __('misc.contact_alt') }}">
                 {{ __('contact.contact_title') }}
             </a>
+            <a class="navbar-brand" href="/manage" title="{{ __('misc.manage_alt') }}">
+                {{ __('managementpage.title') }}
+            </a>
         </div>
         <div id="navbar" class="form-inline">
             <script>

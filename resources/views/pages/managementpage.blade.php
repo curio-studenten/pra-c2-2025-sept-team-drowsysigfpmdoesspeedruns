@@ -1,18 +1,16 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>managementpage</title>
-</head>
-<body>
-    <h1>Management Page</h1>
+<x-layouts.app>
+
+    <x-slot:title>
+        {{ __('managementpage.title') }}
+    </x-slot:title>
+
+    <h1>{{ __('managementpage.header') }}</h1>
     
-    <form action="{{route('manual.create')}}" method="POST">
-    @csrf
-<input type="text" name="brand_id" placeholder="Merk">
-<input type="text" name="name" placeholder="Model">
-<input type="submit" value="Submit">
-</form>
-</body>
-</html>
+    <form action="{{ route('manual.create') }}" method="POST">
+        @csrf
+        <input type="text" name="brand_id" placeholder="{{ __('managementpage.brand') }}">
+        <input type="text" name="name" placeholder="{{ __('managementpage.model') }}">
+        <input type="submit" value="{{ __('managementpage.submit') }}">
+    </form>
+
+</x-layouts.app>
