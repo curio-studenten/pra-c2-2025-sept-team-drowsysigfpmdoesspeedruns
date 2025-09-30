@@ -42,6 +42,8 @@ Route::get('/contact', function () {
 Route::get('/manage', function () {
     return view('pages.managementpage');
 });
+
+Route::get('/manual/create', [\App\Http\Controllers\ManualController::class, 'create'])->name('manual.create');
 Route::post('/contact', [ContactController::class, 'store']);
 
 Route::get('/manual/{language}/{brand_slug}/', [RedirectController::class, 'brand']);

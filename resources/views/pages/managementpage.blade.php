@@ -7,9 +7,9 @@
 </head>
 <body>
     <h1>Management Page</h1>
-    @csrf
-    <form action="{{route('manual.create')}}" method="POST">
     
+    <form action="{{route('manual.create')}}" method="POST">
+    @csrf
 <input type="text" name="brand_id" placeholder="Merk">
 <input type="text" name="name" placeholder="Model">
 <input type="submit" value="Submit">
