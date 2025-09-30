@@ -9,7 +9,9 @@
     <h1>
         <x-slot:title>{{ __('misc.all_brands') }}</x-slot:title>
     </h1>
-
+                    <a class="navbar-brand" href="/manage" title="{{ __('misc.contact_al') }}">
+                {{ __('pages.') }}
+            </a>
     {{-- === Top 10 Handleidingen (boven de merkenlijst) === --}}
 @isset($top10Manuals)
 <section class="mb-4" aria-labelledby="h-top10">

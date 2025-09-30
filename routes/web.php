@@ -35,10 +35,13 @@ Route::get('/', function () {
     return view('pages.homepage', compact('brands', 'description', 'myname', 'top10Manuals'));
 })->name('home');
 
+
 Route::get('/contact', function () {
     return view('pages.contact');
 });
-
+Route::get('/manage', function () {
+    return view('pages.managementpage');
+});
 Route::post('/contact', [ContactController::class, 'store']);
 
 Route::get('/manual/{language}/{brand_slug}/', [RedirectController::class, 'brand']);

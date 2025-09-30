@@ -25,7 +25,7 @@
                 @forelse($top5Manuals as $m)
                     <li class="list-group-item d-flex justify-content-between align-items-center">
                         
-                        <div class="fw-semibold">{{ $m->type->name ?? __('Unknown type') }}</div>
+                        <div class="fw-semibold">{{ $m->type?->name ?? __('Unknown type') }}</div>
 
                         <div class="d-flex align-items-center gap-2">
                             <span class="badge bg-secondary">
