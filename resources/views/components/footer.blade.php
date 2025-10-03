@@ -2,7 +2,7 @@
   <div class="footer-container">
     <div class="footer-block about">
       <h3>Over ons</h3>
-      <p>Lorem ipsum dolor sit amet. In repellat rerum ut suscipit aliquid sed perspiciatis numquam ea consequatur fugit aut mollitia animi quo unde autem</p>
+      <p>Lorem ipsum dolor sit amet.</p>
     </div>
 
     <div class="footer-block contact">
