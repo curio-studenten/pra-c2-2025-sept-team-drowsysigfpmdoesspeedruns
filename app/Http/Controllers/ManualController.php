@@ -57,4 +57,8 @@ class ManualController extends Controller
 
         return view('pages/manuals_top5_brand', compact('brand', 'manuals'));
     }
+    public function create()
+    {
+        
+    }
 }
